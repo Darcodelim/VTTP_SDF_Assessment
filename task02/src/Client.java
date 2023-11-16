@@ -54,24 +54,36 @@ public class Client {
          String Serverline;
          int count = 0;
          int itemCount = 0;
+         String[][] Products;
+         int budget;
+
          while((Serverline = br.readLine()) != null)
          {
              System.out.printf(">>Output: %s\n", Serverline);
-             String[] array = Serverline.split(" ");
-             if(array[0].equals("item_count:") )
+             String[] serverArray = Serverline.split(" ",2);
+             if(serverArray[0].equals("budget:"))
              {
-                itemCount = Integer.parseInt(array[1]);
-                System.out.println(itemCount);
-             }
-             else if(array[0].equals("prod_end"))
-             {
-                count+=1;
+                budget = Integer.parseInt(serverArray[1]);
              }
 
-             else if(count == itemCount)
-            {
-                break;
-            }
+
+             if(serverArray[0].equals("item_count:") )
+             {
+                itemCount = Integer.parseInt(serverArray[1]);
+                System.out.println(itemCount);
+             }
+
+             for(int i = 0; i<itemCount;i++)
+             {
+                for(int j = 0; i<4;j++)
+                {
+                    Products[i][j]
+                }
+             }
+            
+             
+
+
          }
 
 
