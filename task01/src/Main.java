@@ -30,7 +30,7 @@ public class Main{
         try(FileReader fr = new FileReader(fileName))
         {
             BufferedReader br = new BufferedReader(fr);
-
+            int lines = 0;
             Map<String,List<Games>> Organised = br.lines()
             .skip(1)
             .map(row->row.trim().split(","))
@@ -40,9 +40,13 @@ public class Main{
             for(String category : Organised.keySet())
             {
                 List<Games> games = Organised.get(category);
-                System.out.printf("%s (%d)\n", category,games.size());
+                System.out.printf("%s", category);
                 int count = 0;
                 Map<String,Double> gameMap = new HashMap<>();
+
+                double max_value = 0;
+                double averageNum = 0;
+                double min_value = 5;
 
                 for(int i = 0 ; i<games.size();i++ )
                 
@@ -67,53 +71,64 @@ public class Main{
                         gameMap.put(upGame.getApp(),Double.parseDouble(upGame.getRating()));
 
                     }
+                
+                }
 
-                    Map.Entry<String,Double> maxEntry = null;
-                    for(Map.Entry<String,Double> entry : gameMap.entrySet())
+                for(double value: gameMap.values())
                     {
-                        if(maxEntry == null || entry.getValue().compareTo(maxEntry.getValue())>0)
+                        if(value>max_value)
                         {
-                            maxEntry = entry;
+                            max_value = value;
                         }
                     }
-                    System.out.println(maxEntry.getKey());
-
-
-                    // List<Map.Entry<String,Double>> gameList = new ArrayList<>(gameMap.entrySet());
-
-                    // Collections.sort(gameList, new Comparator<Map.Entry<String,Double>>()
-                    // {
-                    //     @Override
-                    //     public
-                    //     int compare(Map.Entry<String,Double> rating1, Map.Entry<String,Double> rating2)
-                    //     {
-                    //         return rating1.getKey().compareTo(rating2.getKey());
-                    //     }
-                    // });
-
-                    // for(Entry<String, Double> gameEntry : gameList)
-                    // {   
-                    //     System.out.println(gameEntry.getKey()+ " " + gameEntry.getValue());
-                    // }
-    
-
-
-                
 
                     
-                    // System.out.printf("\t%s\n",game.getApp());
-                    // System.out.printf("\t%s\n", game.getRating());
-                }
+                    for(double value: gameMap.values())
+                    {
+                        if(value<min_value)
+                        {
+                            min_value=value;
+                        }
+                    }
+
+                    double total = 0;
+                    for (double value: gameMap.values())
+                    {   
+                        total += value;
+                    }
+
+                    averageNum = total/gameMap.size();
+
                 int size_of_game = games.size();
                 int discardGame = size_of_game - count;
-                System.out.printf("Discarded: %d\n",discardGame);
+                System.out.println();
+                System.out.print("\tHighest:");
+                System.out.println();
+                for(Entry<String, Double> entry: gameMap.entrySet()) {
 
-                // for(String app: gameMap.keySet())
-                // {
+                    // if give value is equal to value from entry
+                    // print the corresponding key
+                    if(entry.getValue() == max_value) {
+                      System.out.printf("\t\t%s , %.1f\n", entry.getKey(),entry.getValue());
+                      }
+                }
+                System.out.println();
+                System.out.print("\tLowest:");
+                System.out.println();
+                for(Entry<String, Double> entry: gameMap.entrySet()) {
 
-                //     System.out.println(app);
-                //     System.out.println(gameMap.get(app));
-                // }
+                    // if give value is equal to value from entry
+                    // print the corresponding key
+                    if(entry.getValue() == min_value) {
+                      System.out.printf("\t\t%s , %.1f\n", entry.getKey(),entry.getValue());
+                      }
+                }
+                
+                System.out.printf("\tAverage: %.1f\n", averageNum);
+                System.out.printf("\tCount: %d\n", gameMap.size());
+                
+                System.out.printf("\tDiscarded: %d\n",discardGame);
+                System.out.println();
             }
 
 
@@ -126,4 +141,6 @@ public class Main{
 
 
     }
+    
+
 }
