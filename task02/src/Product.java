@@ -1,15 +1,12 @@
 package task02.src;
 
 public class Product {
+    private String id;
     private String ProductName;
     private int Rating;
     private int price;
 
-    public Product(String productName, int rating, int price) {
-        this.ProductName = productName;
-        this.Rating = rating;
-        this.price = price;
-    }
+
 
     public String getProductName() {
         return ProductName;
@@ -33,6 +30,15 @@ public class Product {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    
+    public String getiD() {
+        return id;
+    }
+
+    public void setiD(String id) {
+        this.id = id;
     }
 
 

@@ -5,7 +5,10 @@ import java.io.BufferedWriter;
 import java.io.Console;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Array;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Client {
     public static void main(String[] args) {
@@ -54,38 +57,85 @@ public class Client {
          String Serverline;
          int count = 0;
          int itemCount = 0;
-         String[][] Products;
-         int budget;
-
+         double budget;
+        List<Product> dataBase= new ArrayList<>();
+        
          while((Serverline = br.readLine()) != null)
          {
              System.out.printf(">>Output: %s\n", Serverline);
-             String[] serverArray = Serverline.split(" ",2);
-             if(serverArray[0].equals("budget:"))
-             {
-                budget = Integer.parseInt(serverArray[1]);
-             }
-
-
-             if(serverArray[0].equals("item_count:") )
-             {
-                itemCount = Integer.parseInt(serverArray[1]);
-                System.out.println(itemCount);
-             }
-
-             for(int i = 0; i<itemCount;i++)
-             {
-                for(int j = 0; i<4;j++)
-                {
-                    Products[i][j]
-                }
-             }
-            
              
 
+             
+             String[] serverArray = Serverline.split(" ",2);
 
+             if(serverArray[0].equals("budget:"))
+             {
+                budget = Double.parseDouble(serverArray[1]);
+             }
+             
+             if(serverArray[0].equals("item_count:") )
+             {
+                 itemCount = Integer.parseInt(serverArray[1]);
+             }
+
+            if(serverArray[0].equals("prod_start") )
+             {
+                 Product product = new Product();
+
+                if(serverArray[0].equals("prod_id: ") )
+                {
+                 product.setiD(serverArray[1]); 
+                
+                }
+                else if(serverArray[0].equals("title: "))
+                {
+                    product.setProductName(serverArray[1]);
+                }
+
+                else if(serverArray[0].equals("price: "))
+                {
+                    product.setPrice(Integer.parseInt(serverArray[1]));
+                }
+
+                
+             }
+
+            
+
+
+            //  // 4 columns: prod_id,title,price,rating
+            //  String[][] Products = new String[itemCount][4];
+             
+
+            //  for(int i = 0; i<itemCount;i++)
+            //  {
+            //         if(serverArray[0].equals("prod_id:"))
+            //         {   
+            //             Products[i][0] = serverArray[1];
+                           
+            //         }
+
+            //         else if(serverArray[0].equals("title: "))
+            //         {Products[i][1] = serverArray[1];}
+
+            //         else if(serverArray[0].equals("price: "))
+            //         {Products[i][2] = serverArray[1];}
+
+            //         else if(serverArray[0].equals("rating: "))
+            //         {
+                        
+            //             Products[i][3] =serverArray[1];
+                        
+            //         }
+            //         System.out.println(Products[i][0]);
+
+            //  }
+
+                // bw.write("client_end"+"\n");
+                // bw.flush();
          }
 
+         
 
 
 
